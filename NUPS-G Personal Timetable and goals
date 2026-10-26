@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#3157c8">
+<title>My Student Timetable</title>
+<style>
+:root{--primary:#3157c8;--primary2:#dce7ff;--ink:#17213b;--muted:#5c6680;--bg:#f4f7ff;--card:#fff;--line:#dbe2f0;--soft:#edf2ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body.purple{--primary:#7441c8;--primary2:#eadfff;--bg:#f8f4ff;--line:#e4d9f4;--soft:#f2eaff}
+header{background:linear-gradient(135deg,var(--primary),#687fe5);color:#fff;padding:24px 16px 22px}
+.wrap{max-width:1100px;margin:auto;padding:0 14px}h1{font-size:clamp(1.5rem,4vw,2.2rem);margin:0 0 6px}header p{margin:0;opacity:.95}
+main{padding:18px 0 44px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 16px;box-shadow:0 5px 18px #1e2d5010}
+h2{font-size:1.15rem;margin:0 0 12px}h3{font-size:1rem;margin:0 0 8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+label{display:block;font-weight:650;font-size:.9rem;margin-bottom:5px}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;background:white;color:#17213b;min-height:44px}
+textarea{min-height:90px;resize:vertical}.hint{font-size:.86rem;color:var(--muted);margin:5px 0 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}button,.button{border:0;border-radius:11px;background:var(--primary);color:white;padding:11px 14px;font:700 .95rem system-ui;cursor:pointer;min-height:44px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+button.secondary{background:var(--primary2);color:var(--primary)}button.outline{background:white;color:var(--primary);border:1px solid var(--primary)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:690px;background:#fff}th,td{border:1px solid var(--line);padding:7px;text-align:left;vertical-align:top}th{background:var(--primary2);color:var(--ink);font-size:.83rem}td:first-child{font-weight:700;background:var(--soft);width:92px}
+td input,td select{min-width:108px;padding:8px;border-radius:7px;min-height:40px;font-size:.88rem}
+.daytabs{display:flex;gap:7px;overflow:auto;padding:2px 0 10px}.daytabs button{white-space:nowrap;flex-shrink:0}
+.mobile-schedule{display:none}.slot{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}.slot .grid{gap:8px}
+.small{font-size:.86rem;color:var(--muted)}.pill{display:inline-block;background:var(--primary2);color:var(--primary);border-radius:999px;padding:4px 9px;font-size:.8rem;font-weight:700}
+footer{text-align:center;color:var(--muted);padding:12px;font-size:.85rem}
+@media(max-width:650px){.grid,.three{grid-template-columns:1fr}.card{padding:13px;border-radius:14px}.desktop-schedule{display:none}.mobile-schedule{display:block}.wrap{padding:0 11px}header{padding:21px 12px}.actions button,.actions a{flex:1 1 140px}}
+@media print{body{background:#fff;font-size:11px}header{padding:10px;background:#fff!important;color:#111;border-bottom:2px solid #555}.wrap{max-width:none;padding:0}.card{box-shadow:none;border:1px solid #bbb;break-inside:avoid;padding:10px;margin-bottom:8px}button,.actions,.daytabs,.hint,.no-print,footer{display:none!important}.desktop-schedule{display:block!important}.mobile-schedule{display:none!important}table{min-width:0;font-size:9px}td input,td select{border:0;padding:2px;min-width:0;font-size:9px;appearance:none}input,textarea,select{border:0;padding:2px;min-height:0}textarea{min-height:40px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="pill" style="background:#ffffff2b;color:white;margin-bottom:8px">FRESHMAN SUCCESS TOOL</div><h1>My Student Personal Timetable</h1><p>Plan your classes, study, rest, goals and routines—one week at a time.</p></div></header>
+<main class="wrap">
+<section class="card">
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><h2>1. About you</h2><div class="actions no-print" style="margin:0"><button class="secondary" id="blueBtn" type="button">🔵 Blue theme</button><button class="secondary" id="purpleBtn" type="button">🟣 Purple theme</button></div></div>
+<div class="grid three">
+<div><label for="studentName">Full name</label><input id="studentName" autocomplete="name" placeholder="Your full name"></div>
+<div><label for="studentId">Student ID (optional)</label><input id="studentId" placeholder="Your student ID"></div>
+<div><label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="name@example.com"></div>
+<div><label for="university">University</label><input id="university" placeholder="University name"></div>
+<div><label for="programme">Programme / level</label><input id="programme" placeholder="e.g. BSc Computer Science, Level 100"></div>
+<div><label for="week">Week beginning</label><input id="week" type="date"></div>
+</div>
+<p class="hint">Tip: Fill this in on your phone. Your work is saved on this device when you press “Save on this device”. Avoid using a shared/public phone for private goals.</p>
+</section>
+<section class="card">
+<h2>2. Weekly timetable</h2>
+<p class="small">Enter lectures, tutorials, study sessions, meals, commute, rest, clubs and spiritual activities. Leave unused slots blank. Times are flexible; adjust them to your actual campus schedule.</p>
+<div class="actions no-print"><button type="button" class="secondary" id="addRow">＋ Add time slot</button><button type="button" class="secondary" id="clearSchedule">Clear timetable</button></div>
+<div class="desktop-schedule tablewrap" style="margin-top:12px"><table id="scheduleTable"><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th><th>Sunday</th></tr></thead><tbody id="scheduleBody"></tbody></table></div>
+<div class="mobile-schedule" style="margin-top:12px"><div class="daytabs" id="dayTabs"></div><div id="mobileSlots"></div></div>
+</section>
+<section class="card">
+<h2>3. My three semester goals</h2>
+<p class="small">Make each goal specific and realistic. For example: “Study Biology for 45 minutes after lectures on four days each week.”</p>
+<div class="grid">
+<div><label for="academicGoal">📚 Academic goal</label><textarea id="academicGoal" placeholder="What do I want to achieve academically, and how will I work towards it?"></textarea></div>
+<div><label for="personalGoal">🌱 Personal development goal</label><textarea id="personalGoal" placeholder="What skill or healthy habit do I want to build?"></textarea></div>
+<div><label for="spiritualGoal">💜 Spiritual / values goal (optional)</label><textarea id="spiritualGoal" placeholder="Optional: a spiritual or personal values goal, if you wish to share it."></textarea><p class="hint">Only include what you are comfortable sharing with your advisor.</p></div>
+<div><label for="supportNeeded">🤝 What support would help me?</label><textarea id="supportNeeded" placeholder="e.g. study skills, time management, finding a campus club"></textarea></div>
+</div>
+</section>
+<section class="card">
+<h2>4. Daily routines & weekly check-in</h2>
+<div class="grid three">
+<div><label for="sleep">Sleep target</label><input id="sleep" placeholder="e.g. 10:30 pm–6:30 am"></div>
+<div><label for="meals">Meal plan reminder</label><input id="meals" placeholder="e.g. breakfast, lunch, dinner"></div>
+<div><label for="commute">Commute / travel buffer</label><input id="commute" placeholder="e.g. 30 minutes each way"></div>
+<div><label for="rest">Rest / exercise</label><input id="rest" placeholder="e.g. walk or rest after lectures"></div>
+<div><label for="checkin">My weekly review day</label><select id="checkin"><option value="">Choose a day</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select></div>
+<div><label for="reflection">End-of-week reflection</label><textarea id="reflection" placeholder="What went well? What will I adjust next week?"></textarea></div>
+</div>
+</section>
+<section class="card">
+<h2>5. Save, download or send to your advisor</h2>
+<p class="small">Save stores your draft only in this browser on this device. PDF prints the full planner. Excel downloads an editable CSV spreadsheet that opens in Excel or Google Sheets. To submit everything together, prepare a summary and paste it into the advisor Google Form.</p>
+<div class="actions no-print">
+<button id="saveBtn" type="button">Save on this device</button>
+<button id="pdfBtn" type="button" class="secondary">Download / print PDF</button>
+<button id="csvBtn" type="button" class="secondary">Download Excel-compatible CSV</button>
+<button id="submitBtn" type="button">Prepare submission</button>
+</div>
+<p id="status" role="status" aria-live="polite" class="hint"></p>
+<div id="submissionBox" hidden style="margin-top:12px">
+<label for="submissionText">Your complete submission summary</label>
+<textarea id="submissionText" style="min-height:230px"></textarea>
+<div class="actions no-print"><button id="copyBtn" type="button">Copy summary</button><button id="formBtn" type="button" class="secondary">Open advisor Google Form</button></div>
+<p class="hint">Copy the summary, open the form, fill in the student details and goals, then paste this summary into the form’s “Complete timetable summary” field before submitting.</p>
+</div>
+</section>
+</main><footer>Made for university freshmen • Keep a balanced plan: classes, study, sleep, meals, travel and rest all matter.</footer>
+<script>
+const days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+let times=["6:00–7:00 am","7:00–8:00 am","8:00–9:00 am","9:00–10:00 am","10:00–11:00 am","11:00 am–12:00 pm","12:00–1:00 pm","1:00–2:00 pm","2:00–3:00 pm","3:00–4:00 pm","4:00–5:00 pm","5:00–6:00 pm","6:00–7:00 pm","7:00–8:00 pm","8:00–9:00 pm","9:00–10:00 pm"];
+const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeiZdIdnCPKJnOJ5Bqt88Zfb1iIzbeKvP7fwboHHLBvKICP1g/viewform?usp=header";
+let selectedDay="Monday"; let mobileIndex=0;
+const $=id=>document.getElementById(id);
+function cellInput(day,time){return `<input aria-label="${day}, ${time}" data-day="${day}" data-time="${time}" placeholder="Class / study / rest">`}
+function renderTable(){ $("scheduleBody").innerHTML=times.map(t=>`<tr><td>${t}</td>${days.map(d=>`<td>${cellInput(d,t)}</td>`).join("")}</tr>`).join(""); renderTabs(); renderMobile(); }
+function renderTabs(){ $("dayTabs").innerHTML=days.map(d=>`<button type="button" class="${d===selectedDay?'':'secondary'}" data-selectday="${d}">${d}</button>`).join(""); $("dayTabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{selectedDay=b.dataset.selectday;renderTabs();renderMobile()})}
+function renderMobile(){ $("mobileSlots").innerHTML=times.map(t=>`<div class="slot"><label>${t}</label>${cellInput(selectedDay,t)}</div>`).join(""); }
+function getVal(id){return ($(id).value||"").trim()}
+function collect(){let schedule={};days.forEach(d=>{schedule[d]={};times.forEach(t=>{let el=document.querySelector(`#scheduleBody input[data-day="${d}"][data-time="${CSS.escape(t)}"]`);schedule[d][t]=el?el.value:""})});return {studentName:getVal("studentName"),studentId:getVal("studentId"),email:getVal("email"),university:getVal("university"),programme:getVal("programme"),week:getVal("week"),schedule,academicGoal:getVal("academicGoal"),personalGoal:getVal("personalGoal"),spiritualGoal:getVal("spiritualGoal"),supportNeeded:getVal("supportNeeded"),sleep:getVal("sleep"),meals:getVal("meals"),commute:getVal("commute"),rest:getVal("rest"),checkin:getVal("checkin"),reflection:getVal("reflection")}}
+function applyData(d){["studentName","studentId","email","university","programme","week","academicGoal","personalGoal","spiritualGoal","supportNeeded","sleep","meals","commute","rest","checkin","reflection"].forEach(k=>{if(d[k]!=null)$(k).value=d[k]});if(d.schedule){document.querySelectorAll("#scheduleBody input").forEach(el=>{el.value=d.schedule[el.dataset.day]?.[el.dataset.time]||""});renderMobile();}}
+function syncMobileToDesktop(){document.querySelectorAll("#mobileSlots input").forEach(el=>{let dest=document.querySelector(`#scheduleBody input[data-day="${CSS.escape(el.dataset.day)}"][data-time="${CSS.escape(el.dataset.time)}"]`);if(dest)dest.value=el.value})}
+function syncDesktopToMobile(){document.querySelectorAll("#scheduleBody input").forEach(el=>{let dest=document.querySelector(`#mobileSlots input[data-day="${CSS.escape(el.dataset.day)}"][data-time="${CSS.escape(el.dataset.time)}"]`);if(dest)dest.value=el.value})}
+function save(){syncMobileToDesktop();localStorage.setItem("freshmanTimetableV1",JSON.stringify(collect()));$("status").textContent="Saved on this device. Remember to download a copy before changing devices or clearing browser data."}
+function summary(){syncMobileToDesktop();let d=collect();let out=["STUDENT PERSONAL TIMETABLE SUBMISSION","===================================","Name: "+d.studentName,"Student ID: "+d.studentId,"Email: "+d.email,"University: "+d.university,"Programme / level: "+d.programme,"Week beginning: "+d.week,"","WEEKLY TIMETABLE"];days.forEach(day=>{out.push("",day);times.forEach(t=>{let v=d.schedule[day][t];if(v)out.push("  "+t+": "+v)})});out.push("","SEMESTER GOALS","Academic: "+d.academicGoal,"Personal development: "+d.personalGoal,"Spiritual / values (optional): "+d.spiritualGoal,"Support requested: "+d.supportNeeded,"","DAILY ROUTINES","Sleep: "+d.sleep,"Meals: "+d.meals,"Commute: "+d.commute,"Rest / exercise: "+d.rest,"Weekly review day: "+d.checkin,"Reflection: "+d.reflection);return out.join("\n")}
+function download(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+function csvCell(s){return '"'+String(s??"").replace(/"/g,'""')+'"'}
+function csv(){syncMobileToDesktop();let d=collect(),rows=[["STUDENT PERSONAL TIMETABLE"],["Name",d.studentName],["Student ID",d.studentId],["Email",d.email],["University",d.university],["Programme / level",d.programme],["Week beginning",d.week],[],["Time",...days]];times.forEach(t=>rows.push([t,...days.map(day=>d.schedule[day][t])]));rows.push([],["SEMESTER GOALS"],["Academic goal",d.academicGoal],["Personal development goal",d.personalGoal],["Spiritual / values goal",d.spiritualGoal],["Support requested",d.supportNeeded],[],["DAILY ROUTINES"],["Sleep",d.sleep],["Meals",d.meals],["Commute",d.commute],["Rest / exercise",d.rest],["Weekly review day",d.checkin],["Reflection",d.reflection]);download("my_student_timetable.csv","\ufeff"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n"),"text/csv;charset=utf-8")}
+$("blueBtn").onclick=()=>{document.body.classList.remove("purple");localStorage.setItem("freshmanTheme","blue")};$("purpleBtn").onclick=()=>{document.body.classList.add("purple");localStorage.setItem("freshmanTheme","purple")};
+$("saveBtn").onclick=save;$("pdfBtn").onclick=()=>{syncMobileToDesktop();window.print()};$("csvBtn").onclick=csv;
+$("addRow").onclick=()=>{let n=prompt("Enter a time slot label, e.g. 10:00–11:00 pm");if(n&&n.trim()){times.push(n.trim());renderTable()}};
+$("clearSchedule").onclick=()=>{if(confirm("Clear all timetable entries?")){document.querySelectorAll("#scheduleBody input").forEach(e=>e.value="");renderMobile()}};
+$("submitBtn").onclick=()=>{syncMobileToDesktop();$("submissionText").value=summary();$("submissionBox").hidden=false;$("status").textContent="Your summary is ready. Copy it, then open the advisor form and paste it into the complete timetable field.";};
+$("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText($("submissionText").value);$("status").textContent="Summary copied. Open the Google Form and paste it into the complete timetable summary field."}catch(e){$("submissionText").focus();$("submissionText").select();$("status").textContent="Select and copy the summary manually, then paste it into the Google Form."}};
+$("formBtn").onclick=()=>{const url=GOOGLE_FORM_URL;if(url&&url!=="YOUR_GOOGLE_FORM_URL"&&/^https:\/\/docs\.google\.com\/forms\//.test(url)){window.open(url,"_blank","noopener")}else{alert("Before publishing, replace YOUR_GOOGLE_FORM_URL in the HTML with your Google Form responder link.")}};
+document.addEventListener("input",e=>{if(e.target.matches("#scheduleBody input"))syncDesktopToMobile();if(e.target.matches("#mobileSlots input"))syncMobileToDesktop()});
+renderTable();if(localStorage.getItem("freshmanTheme")==="purple")document.body.classList.add("purple");try{let old=localStorage.getItem("freshmanTimetableV1");if(old)applyData(JSON.parse(old))}catch(e){}
+</script>
+</body></html>
